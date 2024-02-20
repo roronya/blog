@@ -15,3 +15,7 @@ p.date {
 main > h1 {
   color: #142C4D
 }
+
+main > p {
+  text-indent: 1em;
+}
