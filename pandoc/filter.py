@@ -1,5 +1,14 @@
 import panflute as pf
 
+
+def extract_title(doc):
+    # ドキュメントを走査して最初のh1見出しを探す
+    for elem in doc.content:
+        if isinstance(elem, pf.Header) and elem.level == 1:
+            title = pf.stringify(elem)
+            doc.metadata['title'] = pf.MetaString(title)
+            break  # 最初のh1見出しのみを使用
+
 def extract_description(doc):
     text = ''.join(pf.stringify(block) for block in doc.content)
     description = text[:90]
@@ -21,6 +30,7 @@ def convert_slug_to_date(doc):
 
 def main(doc=None):
     doc = pf.load(input_stream=None)
+    extract_title(doc)
     extract_description(doc)
     convert_slug_to_date(doc)
     pf.dump(doc)
