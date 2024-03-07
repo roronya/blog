@@ -1,3 +1,7 @@
+body {
+  margin: 0; /* reset user agent stylesheet */
+}
+
 main {
   max-width: 1024px;
   margin: 0 16px 16px 16px;
@@ -18,4 +22,16 @@ main > h1 {
 
 main > p {
   text-indent: 1em;
+}
+
+footer {
+  margin: 16px;
+}
+
+blockquote {
+  margin-inline-start: 10px;
+  margin-inline-end: 10px;
+  border-left: solid gray;
+  padding-left: 8px;
+  font-style: italic;
 }
