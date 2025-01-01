@@ -6,5 +6,7 @@ top:
 article:
 	pandoc --template=templates/article.html --filter=pandoc/filter.py markdown/${slug}.md -o docs/${slug}.html
 
+# usage: make articles
+# markdown配下のすべての記事を作り直す。
 articles:
 	ls -1 markdown | xargs -I {} basename {} .md | xargs -I {} make article slug={}
