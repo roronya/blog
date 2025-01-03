@@ -1,3 +1,5 @@
+all: entries top articles
+
 top:
 	pandoc --template templates/top.html entries.md -o docs/index.html
 
@@ -9,7 +11,7 @@ article:
 # usage: make articles
 # markdown配下のすべての記事を作り直す。
 articles:
-	ls -1 markdown | xargs -I {} basename {} .md | xargs -I {} make article slug={}
+	ls -1 markdown | xargs -P4 -I {} basename {} .md | xargs -P4 -I {} make article slug={}
 
 INPUT_DIR=markdown
 OUTPUT_FILE=entries.md
