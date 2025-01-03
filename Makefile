@@ -11,17 +11,22 @@ article:
 articles:
 	ls -1 markdown | xargs -I {} basename {} .md | xargs -I {} make article slug={}
 
-# 変換タスク
+INPUT_DIR=markdown
+OUTPUT_FILE=entries.md
 entries:
-	@echo "---" > "entries.md"
-	@echo "entries:" >> "entries.md"
-	@for file in markdown/*.md; do \
-	  slug=$$(awk -F': ' '/^slug:/ {print $$2}' $$file); \
-	  title=$$(awk '/^# / {sub("^# ", ""); print; exit}' $$file | sed 's/"/\\"/g'); \
-	  year=$$(echo $$slug | cut -c1-4); \
-	  month=$$(echo $$slug | cut -c5-6); \
-	  day=$$(echo $$slug | cut -c7-8); \
-	  createdAt="$$year-$$month-$$day"; \
-	  echo "  - {createdAt: \"$$createdAt\", path: \"./$$slug.html\", title: \"$$title\"}" >> "entries.md"; \
-	done
-	@echo "---" >> "entries.md"
+	@echo "---" > "$(OUTPUT_FILE)"
+	@echo "entries:" >> "$(OUTPUT_FILE)"
+	@{ \
+	  for file in $(INPUT_DIR)/*.md; do \
+	    slug=$$(awk -F': ' '/^slug:/ {print $$2}' $$file); \
+	    title=$$(awk '/^# / {sub("^# ", ""); print; exit}' $$file | sed 's/"/\\"/g'); \
+	    year=$$(echo $$slug | cut -c1-4); \
+	    month=$$(echo $$slug | cut -c5-6); \
+	    day=$$(echo $$slug | cut -c7-8); \
+	    createdAt="$$year-$$month-$$day"; \
+	    echo "$$createdAt|./$$slug.html|$$title"; \
+	  done | sort -r | \
+	  awk -F'|' '{printf "  - {createdAt: \"%s\", path: \"%s\", title: \"%s\"}\n", $$1, $$2, $$3}' >> "$(OUTPUT_FILE)"; \
+	}
+	@echo "---" >> "$(OUTPUT_FILE)"
+
