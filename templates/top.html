@@ -33,7 +33,12 @@
     </header>
     <main>
       <h1>an odd fellow</h1>
-      $body$
+      <dl>
+      $for(entries)$
+        <dt><span>$entries.createdAt$</span></dt>
+        <dd><a href="$entries.path$">$entries.title$</a></dd>
+      $endfor$
+      </dl>
     </main>
     <footer>
       <a href="https://twitter.com/roronya">Twitter</a>
