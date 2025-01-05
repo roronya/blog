@@ -30,14 +30,24 @@
   </head>
   <body>
     <header>
-      <h1>an odd fellow</h1>
+      <h1><img src="./images/roronya.jpeg" width=24px height=24px> an odd fellow</h1>
+      <p>This is roronya's blog</p>
+    </header>
+    <main>
+      <h2>Articles</h2>
+      <dl>
+      $for(entries)$
+        <dt><span>$entries.createdAt$</span></dt>
+        <dd><a href="$entries.path$">$entries.title$</a></dd>
+      $endfor$
+      </dl>
+
       <h2>About me</h2>
       <dl>
         <dt>Author</dt>
-        <dd><img src="./images/roronya.jpeg" width=24px height=24px></dd>
         <dd><a href="https://twitter.com/roronya">@roronya</a></dd>
-        <dd>A Software Engineer in Japan.</dd>
-        
+        <dd>A Software Engineer in Japan</dd>
+
         <dt>Experience</dt>
         <dd>2017-onward, <a href="">Recruit Co., Ltd.</a>, software engineer</dd>
         <dd>2015, <a href="https://www.rd.ntt/organization/laboratory/">NTT Laboratory</a>, internship</dd>
@@ -48,15 +58,6 @@
         <dd>2011-2015, <a href="https://www.shinshu-u.ac.jp/faculty/engineering/eict/">Shinshu University, Bachelor of Computer Engineering</a></dd>
 
         <dd>
-      </dl>
-    </header>
-    <main>
-      <h2>Articles</h2>
-      <dl>
-      $for(entries)$
-        <dt><span>$entries.createdAt$</span></dt>
-        <dd><a href="$entries.path$">$entries.title$</a></dd>
-      $endfor$
       </dl>
     </main>
   </body>
